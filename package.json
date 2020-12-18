@@ -1,0 +1,7 @@
+{
+    "name": "demosite",
+    "version": "0.0.1",
+    "dependencies": {
+        "gdrive-sync-js": "0.3.x"
+    }
+}
