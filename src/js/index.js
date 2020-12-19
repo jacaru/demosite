@@ -21,7 +21,7 @@ var scopes = 'profile';
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
-handleClientLoad = function () {
+function handleClientLoad() {
 // Load the API client and auth2 library
 gapi.load('client:auth2', initClient);
 }

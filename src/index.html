@@ -35,8 +35,11 @@
 
     <div id="content"></div>
 
+    <% for (index in htmlWebpackPlugin.files.js) { %>
+    <script src="<%= htmlWebpackPlugin.files.js[0] %>"></script>
+    <% } %>
     <script async defer src="https://apis.google.com/js/api.js" 
-      onload="this.onload=function(){};handleClientLoad()" 
+      onload="this.onload=function(){};window.handleClientLoad()" 
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
 
