@@ -2,8 +2,8 @@
   "name": "demosite",
   "version": "0.0.1",
   "scripts": {
-    "build": "npx webpack --progress --color --bail",
-    "dev": "npx webpack serve --progress --color --bail",
+    "build": "webpack --progress --color --bail",
+    "dev": "webpack serve --progress --color --bail",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -13,6 +13,12 @@
     "html-webpack-plugin": "4.5.x"
   },
   "dependencies": {
-    "gdrive-sync-js": "0.3.x"
+    "buffer": "6.0.x",
+    "gdrive-sync-js": "0.3.x",
+    "process": "0.11.x",
+    "stream-browserify": "3.0.x",
+    "stream-buffers": "3.0.x",
+    "util": "0.12.x",
+    "yaml": "1.10.x"
   }
 }

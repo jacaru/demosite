@@ -23,25 +23,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Say hello using the People API</title>
-    <meta charset='utf-8' />
+    <title>BareBones gDriveSync Demo</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    			  crossorigin="anonymous"></script>
   </head>
   <body>
-    <p>Say hello using the People API.</p>
+    <h1>gDriveSync</h1>
 
-    <!--Add buttons to initiate auth sequence and sign out-->
-    <button id="authorize-button" style="display: none;">Authorize</button>
-    <button id="signout-button" style="display: none;">Sign Out</button>
+      <div id="authenticated-div" style="display: none;" class="authenticated">
+        Logged in as <span id="useremail-span"></span> <button id="signout-button"">Sign-out</button><br/><br/>
 
-    <div id="content"></div>
+        File content: <textarea id="textEditor">Write here</textarea><br/><br/>
+
+        <a href="#" id='save-href'>save</a> a new file Google Document with name gDriveSync.example.txt<br/>
+        <a href="#" onclick="load()">load</a> the last saved Google Document file.<br/><br/>
+        
+        <a href="#" onclick="saveRaw()">save raw</a> is useful when your data is json or plain. It will save the file object as JSON<br/>
+        <a href="#" onclick="loadRaw()">load raw</a> is useful when your data is json or plain. the last saved file.
+        <br/></br/>
+        If name or folder not specified, it will get all files.</br/>
+        </br/>
+        </br/>
+        <a href="#" id="list-files-href">list files</a> name contains <input type=text id="fileName" value="gDriveSync"></input> and are in the folderId: <input type=text id="fileFolderId"></input><br/><br/>
+        <br/>
+        <a href="#"  id="list-folders-href">list folders</a> name contains <input type=text id="folderName"></input> and are in the folderId: <input type=text id="folderId"></input><br/><br/>
+        </br/>
+        <div id="filesListSection">
+          Click a file to load the content (make sure that is text/plain, for instance search for files named as gDriveSync that are the one that are saved).
+          <ul>
+          </ul>
+        </div>
+      </div>
+
+      <div id="not-authenticated-div" style="display: none;" class="not_authenticated">
+        <p>Please sign-in with your Google account to continue.</p>
+        <button id="signin-button"">Sign-in</button>
+      </div>
 
     <% for (index in htmlWebpackPlugin.files.js) { %>
     <script src="<%= htmlWebpackPlugin.files.js[0] %>"></script>
     <% } %>
     <script async defer src="https://apis.google.com/js/api.js" 
-      onload="this.onload=function(){};window.handleClientLoad()" 
+      onload="this.onload=function(){};window.initGapi()" 
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
-
   </body>
 </html>
