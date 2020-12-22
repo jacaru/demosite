@@ -23,37 +23,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>BareBones gDriveSync Demo</title>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-    			  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    			  crossorigin="anonymous"></script>
+    <title>PADELWEB</title>
   </head>
   <body>
-    <h1>gDriveSync</h1>
+    <h1>PADELWEB</h1>
 
       <div id="authenticated-div" style="display: none;" class="authenticated">
         Logged in as <span id="useremail-span"></span> <button id="signout-button"">Sign-out</button><br/><br/>
-
-        File content: <textarea id="textEditor">Write here</textarea><br/><br/>
-
-        <a href="#" id='save-href'>save</a> a new file Google Document with name gDriveSync.example.txt<br/>
-        <a href="#" onclick="load()">load</a> the last saved Google Document file.<br/><br/>
-        
-        <a href="#" onclick="saveRaw()">save raw</a> is useful when your data is json or plain. It will save the file object as JSON<br/>
-        <a href="#" onclick="loadRaw()">load raw</a> is useful when your data is json or plain. the last saved file.
-        <br/></br/>
-        If name or folder not specified, it will get all files.</br/>
-        </br/>
-        </br/>
-        <a href="#" id="list-files-href">list files</a> name contains <input type=text id="fileName" value="gDriveSync"></input> and are in the folderId: <input type=text id="fileFolderId"></input><br/><br/>
-        <br/>
-        <a href="#"  id="list-folders-href">list folders</a> name contains <input type=text id="folderName"></input> and are in the folderId: <input type=text id="folderId"></input><br/><br/>
-        </br/>
-        <div id="filesListSection">
-          Click a file to load the content (make sure that is text/plain, for instance search for files named as gDriveSync that are the one that are saved).
-          <ul>
-          </ul>
-        </div>
+        <button id="getdata-button"">Get Data</button><br/><br/>
+        Data content: <pre id="data-pre"></span><br/><br/>
       </div>
 
       <div id="not-authenticated-div" style="display: none;" class="not_authenticated">

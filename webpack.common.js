@@ -19,14 +19,14 @@ module.exports = {
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
-      Buffer: ['buffer', 'Buffer']
+      //Buffer: ['buffer', 'Buffer']
     }),
   ],
   resolve: {
     fallback: {
-      buffer: require.resolve("buffer/"),
-      stream: require.resolve("stream-browserify"),
-      util: require.resolve("util/")
+      //buffer: require.resolve("buffer/"),
+      //"crypto": require.resolve("crypto-browserify"),
+      //util: require.resolve("util/")
     }
   }
 };
