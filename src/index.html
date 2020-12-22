@@ -28,15 +28,21 @@
   <body>
     <h1>PADELWEB</h1>
 
-      <div id="authenticated-div" style="display: none;" class="authenticated">
-        Logged in as <span id="useremail-span"></span> <button id="signout-button"">Sign-out</button><br/><br/>
-        <button id="getdata-button"">Get Data</button><br/><br/>
-        Data content: <pre id="data-pre"></span><br/><br/>
-      </div>
-
-      <div id="not-authenticated-div" style="display: none;" class="not_authenticated">
+      <div id="not-authenticated-div" style="display: none;">
         <p>Please sign-in with your Google account to continue.</p>
         <button id="signin-button"">Sign-in</button>
+      </div>
+
+      <div id="authenticated-div" style="display: none;">
+        Logged in as <span id="useremail-span"></span> <button id="signout-button"">Sign-out</button><br/><br/>
+
+        <div id="loading-div" style="display: block;">
+          Loading....
+        </div>
+        <div id="config-div" style="display: none;">
+          Config: <pre id="data-pre"></pre><br/><br/>
+        </div>
+        <button id="config-button"">Show Config</button>
       </div>
 
     <% for (index in htmlWebpackPlugin.files.js) { %>

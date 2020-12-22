@@ -1,5 +1,4 @@
 import { GLoginService } from './glogin.service.js';
-import { GAppDataService } from './gappdata.service.js';
 import { DataService } from './data.service.js';
 //const str = require('string-to-stream');
 
@@ -18,8 +17,8 @@ var signinButton = document.getElementById('signin-button');
 signinButton.onclick = signIn;
 var signoutButton = document.getElementById('signout-button');
 signoutButton.onclick = signOut;
-var getdataButton = document.getElementById('getdata-button');
-getdataButton.onclick = loadData;
+var configButton = document.getElementById('config-button');
+configButton.onclick = toggleConfig;
 
 //Try to automactically signin
 function initClient() {
@@ -49,25 +48,30 @@ function signOut() {
     window.loginService.signOut();
 }
 
-function is_auth(useremail) {
+async function is_auth(useremail) {
     document.getElementById('not-authenticated-div').style.display = 'none';
     document.getElementById('authenticated-div').style.display = 'block';
     document.getElementById("useremail-span").textContent=useremail;
-    window.driveService = new GAppDataService();   
+    window.dataService = new DataService();
+    await window.dataService.loadData();
+    document.getElementById('loading-div').style.display = 'none';   
 }
 
 function not_auth() {
     document.getElementById('not-authenticated-div').style.display = 'block';
     document.getElementById('authenticated-div').style.display = 'none';
-    window.driveService = null
+    window.dataService = null
 }
 
-function loadData() {
-     window.driveService.loadData().then((data) => {
-        if (data) {
-            return Promise.resolve(data);
-        }
-        var defaultData = window.dataService.getDefaultData();
-        return window.driveService.saveData(defaultData).then((data) => {return defaultData;});
-    }).then((data) => document.getElementById('data-pre').textContent = data);
+async function toggleConfig() {
+    var configDiv = document.getElementById('config-div')
+    if (configDiv.style.display == 'block') {
+        configDiv.style.display = 'none'
+        configButton.textContent = 'Show Config'
+    } else {
+        document.getElementById('data-pre').textContent = await window.dataService.loadData();
+        configDiv.style.display = 'block'
+        configButton.textContent = 'Hide Config'
+    }
 }
+
