@@ -1,6 +1,8 @@
 import { GLoginService } from './glogin.service.js';
 import { DataService } from './data.service.js';
-//const str = require('string-to-stream');
+import { DateTime } from "luxon";
+var Table = require('cli-table3');
+
 
 //SCOPES: scopes to request, as a space-delimited string. 
 //CLIENT_ID: The app's client ID, found and created in the Google Developers Console.
@@ -19,6 +21,8 @@ var signoutButton = document.getElementById('signout-button');
 signoutButton.onclick = signOut;
 var configButton = document.getElementById('config-button');
 configButton.onclick = toggleConfig;
+
+document.getElementById('date-input').onchange = loadDayTable;
 
 //Try to automactically signin
 function initClient() {
@@ -54,24 +58,44 @@ async function is_auth(useremail) {
     document.getElementById("useremail-span").textContent=useremail;
     window.dataService = new DataService();
     await window.dataService.loadData();
-    document.getElementById('loading-div').style.display = 'none';   
+    onDataLoad();    
 }
 
 function not_auth() {
     document.getElementById('not-authenticated-div').style.display = 'block';
     document.getElementById('authenticated-div').style.display = 'none';
+    document.getElementById('loading-div').style.display = 'block';
+    document.getElementById('loaded-div').style.display = 'none';
     window.dataService = null
+}
+
+function setCalendar() {
+    var period = dataService.getPeriod();
+    var minDate = DateTime.local().minus({days: period}).toISODate();
+    document.getElementById('date-input').min = minDate;
+}
+
+function onDataLoad() {
+    setCalendar();
+    document.getElementById('loading-div').style.display = 'none';
+    document.getElementById('loaded-div').style.display = 'block'; 
 }
 
 async function toggleConfig() {
     var configDiv = document.getElementById('config-div')
     if (configDiv.style.display == 'block') {
         configDiv.style.display = 'none'
-        configButton.textContent = 'Show Config'
+        configButton.textContent = 'Mostrar Reglas'
     } else {
         document.getElementById('data-pre').textContent = await window.dataService.loadData();
         configDiv.style.display = 'block'
-        configButton.textContent = 'Hide Config'
+        configButton.textContent = 'Ocultar Reglas'
     }
+}
+
+function loadDayTable() {
+    var table = new Table({head:['a','b']});
+    table.push(['c','d']);
+    document.getElementById('day-table-pre').textContent = table.toString();
 }
 

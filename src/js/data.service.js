@@ -36,7 +36,7 @@ config:
 
   # Activando esta opción, no se permitirá un hueco entre dos reservas
   # inferior a la duracíon mínima permitida de las mismas. Se permitirá en
-  # su lugar una duración ampliada para la posibles segunda reserva inmediatamente
+  # su lugar una duración ampliada para la posible segunda reserva inmediatamente
   # anterior o posterior a la primera al coste adicional indicado.
   booking_clamp: true
   booking_clamp_cost: 1
@@ -52,18 +52,25 @@ function DataService() {
         return YAML.stringify(YAML.parse(DEFAULT_DATA));
     }
 
+    this.getDataString = function() {
+        return YAML.stringify(this.data);
+    }
+
+    this.getPeriod = function() {
+        return this.data.config.token_release_period;
+    }
+
     this.loadData = async function() {
-        if (this.data) {
-            return this.data;
+        if (this.data == undefined) {
+            var dataString = await this.driveService.loadData().then((data) => {
+                if (data) {
+                    return Promise.resolve(data);
+                }
+                var defaultData = window.dataService.getDefaultData();
+                return this.driveService.saveData(defaultData).then((data) => {return defaultData;});
+            }).then((data) => {return data});
+            this.data = YAML.parse(dataString);
         }
-        this.data = await this.driveService.loadData().then((data) => {
-           if (data) {
-               return Promise.resolve(data);
-           }
-           var defaultData = window.dataService.getDefaultData();
-           return this.driveService.saveData(defaultData).then((data) => {return defaultData;});
-       }).then((data) => {return data});
-       return this.data;
    }
 
 }

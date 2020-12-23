@@ -39,10 +39,19 @@
         <div id="loading-div" style="display: block;">
           Loading....
         </div>
-        <div id="config-div" style="display: none;">
-          Config: <pre id="data-pre"></pre><br/><br/>
+
+        <div id="loaded-div" style="display: none;">
+          <div id="config-div" style="display: none;">
+            Config: <pre id="data-pre"></pre><br/><br/>
+          </div>
+          <button id="config-button"">Mostrar Reglas</button><br/><br/><br/>
+
+          <div id="date-div" style="display: block;">
+            <label for="meeting-time">Fecha:</label>
+            <input type="date" id="date-input"/>
+            <pre id="day-table-pre"></pre>
+          </div>
         </div>
-        <button id="config-button"">Show Config</button>
       </div>
 
     <% for (index in htmlWebpackPlugin.files.js) { %>
