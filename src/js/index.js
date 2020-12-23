@@ -1,7 +1,7 @@
 import { GLoginService } from './glogin.service.js';
 import { DataService } from './data.service.js';
 import { DateTime } from "luxon";
-var Table = require('cli-table3');
+const Anser = require("anser");
 
 
 //SCOPES: scopes to request, as a space-delimited string. 
@@ -94,8 +94,9 @@ async function toggleConfig() {
 }
 
 function loadDayTable() {
-    var table = new Table({head:['a','b']});
-    table.push(['c','d']);
-    document.getElementById('day-table-pre').textContent = table.toString();
+    var date = DateTime.fromISO(document.getElementById('date-input').value);
+    var timetable = window.dataService.getTimetable(date);
+    var html = Anser.ansiToHtml(timetable);
+    document.getElementById('day-table-pre').innerHTML = html;
 }
 
